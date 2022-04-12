@@ -9,41 +9,47 @@
 ##    docker volume rm <name>_jupyterhub_data
 ##
 
+c = get_config()
+
 import os
+# pjoin = os.path.join
 
-## Generic
-c.JupyterHub.admin_access = True
-c.Spawner.default_url = '/lab'
-
-# ## Authenticator
-# from jhub_cas_authenticator.cas_auth import CASAuthenticator
-# c.JupyterHub.authenticator_class = CASAuthenticator
-
-# # The CAS URLs to redirect (un)authenticated users to.
-# c.CASAuthenticator.cas_login_url = 'https://cas.uvsq.fr/login'
-# c.CASLocalAuthenticator.cas_logout_url = 'https://cas.uvsq/logout'
-
-# # The CAS endpoint for validating service tickets.
-# c.CASAuthenticator.cas_service_validate_url = 'https://cas.uvsq.fr/serviceValidate'
-
-# # The service URL the CAS server will redirect the browser back to on successful authentication.
-# c.CASAuthenticator.cas_service_url = 'https://%s/hub/login' % os.environ['HOST']
-
-# c.Authenticator.admin_users = { 'lucadefe' }
+# runtime_dir = os.path.join('/srv/jupyterhub')
 
 
-# ## Docker spawner
-# c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
-# c.DockerSpawner.image = os.environ['DOCKER_JUPYTER_CONTAINER']
-# c.DockerSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
-# # See https://github.com/jupyterhub/dockerspawner/blob/master/examples/oauth/jupyterhub_config.py
-# c.JupyterHub.hub_ip = os.environ['HUB_IP']
+# ## Generic
+# c.JupyterHub.admin_access = True
+# c.Spawner.default_url = '/lab'
 
-# # user data persistence
-# # see https://github.com/jupyterhub/dockerspawner#data-persistence-and-dockerspawner
-# notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
-# c.DockerSpawner.notebook_dir = notebook_dir
-# c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
+c.JupyterHub.port = 80
+
+# ## Cookie secret and state db
+# c.JupyterHub.cookie_secret_file = pjoin(runtime_dir, 'cookie_secret')
+# c.JupyterHub.db_url = pjoin(runtime_dir, 'jupyterhub.sqlite')
+
+## Authenticator
+from oauthenticator.github import GitHubOAuthenticator
+c.JupyterHub.authenticator_class = GitHubOAuthenticator
+c.GitHubOAuthenticator.oauth_callback_url = 'http://ai-marketplace-1.cs.upb.de/hub/oauth_callback'
+c.GitHubOAuthenticator.client_id = ''
+c.GitHubOAuthenticator.client_secret = ''
+
+# c.Authenticator.allowed_users = {'frensing'}
+c.Authenticator.admin_users = {'frensing'}
+
+## Docker spawner
+c.JupyterHub.spawner_class = 'dockerspawner.DockerSpawner'
+
+c.DockerSpawner.image = os.environ['DOCKER_JUPYTER_CONTAINER']
+c.DockerSpawner.network_name = os.environ['DOCKER_NETWORK_NAME']
+# See https://github.com/jupyterhub/dockerspawner/blob/master/examples/oauth/jupyterhub_config.py
+c.JupyterHub.hub_ip = os.environ['HUB_IP']
+
+# user data persistence
+# see https://github.com/jupyterhub/dockerspawner#data-persistence-and-dockerspawner
+notebook_dir = os.environ.get('DOCKER_NOTEBOOK_DIR') or '/home/jovyan'
+c.DockerSpawner.notebook_dir = notebook_dir
+c.DockerSpawner.volumes = { 'jupyterhub-user-{username}': notebook_dir }
 
 # # Other stuff
 # c.Spawner.cpu_limit = 1
@@ -55,6 +61,6 @@ c.Spawner.default_url = '/lab'
 #     {
 #         'name': 'cull_idle',
 #         'admin': True,
-#         'command': 'python /srv/jupyterhub/cull_idle_servers.py --timeout=3600'.split(),
+#         'command': 'python3 /srv/jupyterhub/cull_idle_servers.py --timeout=3600'.split(),
 #     },
 # ]

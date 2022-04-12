@@ -1,4 +1,4 @@
-FROM jupyter/tensorflow-notebook
+FROM jupyter/tensorflow-notebook:hub-2.2.2
 
 LABEL maintainer="Fabian Rensing"
 
