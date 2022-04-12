@@ -23,6 +23,8 @@ import os
 
 c.JupyterHub.port = 80
 
+c.JupyterHub.template_paths = ['/etc/jupyterhub/templates']
+
 # ## Cookie secret and state db
 # c.JupyterHub.cookie_secret_file = pjoin(runtime_dir, 'cookie_secret')
 # c.JupyterHub.db_url = pjoin(runtime_dir, 'jupyterhub.sqlite')

@@ -1,0 +1,249 @@
+{% extends "templates/login.html" %}
+
+{% block title %}JupyterHub - Login{% endblock %}
+
+{% block scripts %}
+
+
+<script src="{{static_url("components/requirejs/require.js") }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url("components/jquery/dist/jquery.min.js") }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url("components/bootstrap/dist/js/bootstrap.min.js") }}" type="text/javascript" charset="utf-8"></script>
+
+{% endblock %}
+
+{% block main %}
+<div class="main-content">
+  <div class="branding">
+    <div class="logos">
+      <a class="logo" href="/">
+        <img src="/hub/static/external/images/AI_Marketplace_Logo_en.png" alt="AI Marketplace" style="max-height:150px;max-width:100%;">
+      </a>
+    </div>
+  </div>
+
+  <div class="container col-12 welcome">
+    <h1>Welcome to the AI Marketplace JupyterHub!</h1>
+  </div>
+
+  {% block login %}
+  <div class="container">
+    {{ super() }}
+  </div>
+  {% endblock login %}
+
+  
+</div>
+{% endblock main %}
+
+{% block stylesheet %}
+{{ super() }}
+<style>
+  html body {
+    background-color: #232F37;
+  }
+
+  .navbar {
+    margin-bottom: 0px;
+  }
+
+  .welcome {
+    color:#fff;
+    text-align: center;
+  }
+
+  .branding {
+    margin-bottom: 100px;
+  }
+
+  .logo {
+    background-clip: border-box;
+    background-image: url(/hub/static/external/images/Hexagon.svg);
+    background-repeat: no-repeat;
+    background-size: 2000px auto;
+    background-position: -1650px -600px;
+    padding-top: 40px;
+
+    padding-right: 140px;
+    margin-right: -140px;
+    padding-bottom: 200px;
+    margin-bottom: -200px;
+  }
+
+  .logo img {
+    width: 200px;
+    margin-left: 20px;
+  }
+
+  a.btn.btn-jupyter.btn-lg {
+    border: solid;
+    border-color: #d50c2f;
+    border-radius: 25px;
+    border-width: 1px;
+    background-color: #d50c2f;
+    color: white;
+    margin: auto;
+    margin-top: 20px;
+    width: auto;  
+  }
+
+  a.btn.btn-jupyter.btn-lg:hover {
+    box-shadow: 0px 2px 5px rgba(35, 47, 55, 0.4);  
+  }
+
+  .main-content {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .logos {
+    flex-wrap: nowrap;
+    display: flex;
+  }
+
+  .left-col {
+    margin-top: 20px;
+  }
+
+  #libretexts {
+    max-height: 150px;
+  }
+
+  #ucdavis {
+    max-height: 60px;
+    padding: 10px;
+  }
+
+  .brand {
+    flex-shrink: 2;
+  }
+
+  #login-box {
+    border: 1px solid silver;
+    padding: 10px;
+    margin-bottom: 30px;
+    /*   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); */
+    border-radius: 5px;
+    flex-grow: 2;
+  }
+
+  .body {
+    padding-bottom: 50px;
+  }
+
+  #login-main .auth-form-body {
+    border-color: rgb(0, 124, 186);
+    color: white;
+  }
+
+  #login-main {
+    margin-top: 5%;
+    height: inherit;
+    width: inherit;
+    margin-bottom: 5%;
+  }
+
+  #login-main .container {
+    width: 50%;
+  }
+
+  footer {
+    border-top: 1px solid silver;
+    padding: 10px;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+  }
+
+  footer p {
+    margin: 0 auto 0 auto;
+    text-align: center;
+  }
+
+  #login-main form {
+    vertical-align: top;
+  }
+
+  #login-main .auth-form-header {
+    color: white;
+    background: rgb(219, 170, 0);
+    border: 1px solid;
+    border-color: rgb(0, 124, 186);
+  }
+
+  #insecure-login-warning {
+    color: black;
+  }
+
+  .btn-jupyter.active,
+  .btn-jupyter:active,
+  .open>.dropdown-toggle.btn-jupyter {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px #a88400;
+    border-color: #a88400;
+    outline-color: #a88400;
+  }
+
+  #login-main .form-control:focus,
+  #login-main input[type=submit]:focus {
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgb(219, 170, 0);
+    border-color: rgb(219, 170, 0);
+    outline-color: rgb(219, 170, 0);
+  }
+
+  .btn-jupyter {
+    color: #fff;
+    background-color: #F37524;
+    border-color: #E34F21;
+    padding: 10px;
+  }
+
+  .col-1 {
+    width: 8.33%;
+  }
+
+  .col-2 {
+    width: 16.66%;
+  }
+
+  .col-3 {
+    width: 25%;
+  }
+
+  .col-4 {
+    width: 33.33%;
+  }
+
+  .col-5 {
+    width: 41.66%;
+  }
+
+  .col-6 {
+    width: 50%;
+  }
+
+  .col-7 {
+    width: 58.33%;
+  }
+
+  .col-8 {
+    width: 66.66%;
+  }
+
+  .col-9 {
+    width: 75%;
+  }
+
+  .col-10 {
+    width: 83.33%;
+  }
+
+  .col-11 {
+    width: 91.66%;
+  }
+
+  .col-12 {
+    width: 100%;
+  }
+</style>
+{% endblock %}
